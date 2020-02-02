@@ -10,12 +10,15 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    private final static String TAG = MainActivity.class.getName();
 
     TextView view;
 
@@ -37,7 +40,10 @@ public class MainActivity extends AppCompatActivity {
 
         view = findViewById(R.id.textView);
 
-        view.setText(intentToString(getIntent()));
+        String str = intentToString(getIntent());
+
+        Log.e(TAG, str);
+        view.setText(str);
 
     }
 
