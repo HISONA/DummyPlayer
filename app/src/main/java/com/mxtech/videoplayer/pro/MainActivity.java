@@ -10,6 +10,7 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -111,11 +112,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static String intentToString(Intent intent) {
-        if (intent == null)
-            return "";
 
+        if (intent == null) {
+            return null;
+        }
+
+/*
         String str = Uri.decode(intent.getDataString());
-
         String data = intent.getDataString();
 
         if(data != null) {
@@ -133,27 +136,69 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+*/
 
-        StringBuilder stringBuilder = new StringBuilder("action: ")
-                .append(intent.getAction())
-                .append("\n\n data: \n")
-                .append(intent.getDataString())
-                .append("\n\n")
-                .append(str)
-                .append("\n\n extras: \n")
-                ;
+        StringBuilder out = new StringBuilder("action: "  + "\n")
+                .append(intent.getAction() + "\n\n")
+                .append(" data: " + "\n")
+                .append(intent.getDataString() + "\n\n")
+                .append(" extras: " + "\n");
 
-        if(intent.getExtras() != null) {
-            for (String key : intent.getExtras().keySet())
-                stringBuilder
-                .append(key)
-                .append("=")
-                .append(intent.getExtras().get(key))
-                .append("\n");
+        return out.toString() + " \n\n" + bundleToString(intent.getExtras());
+    }
+
+    public static String bundleToString(Bundle bundle) {
+        StringBuilder out = new StringBuilder("Bundle[");
+
+        if (bundle == null) {
+            out.append("null");
+        } else {
+
+            boolean first = true;
+
+            for (String key : bundle.keySet()) {
+
+                if (!first) {
+                    out.append(", \n\n");
+                }
+
+                out.append(key).append('=');
+
+                Object value = bundle.get(key);
+
+                if (value instanceof int[]) {
+                    out.append(Arrays.toString((int[]) value));
+                } else if (value instanceof byte[]) {
+                    out.append(Arrays.toString((byte[]) value));
+                } else if (value instanceof boolean[]) {
+                    out.append(Arrays.toString((boolean[]) value));
+                } else if (value instanceof short[]) {
+                    out.append(Arrays.toString((short[]) value));
+                } else if (value instanceof long[]) {
+                    out.append(Arrays.toString((long[]) value));
+                } else if (value instanceof float[]) {
+                    out.append(Arrays.toString((float[]) value));
+                } else if (value instanceof double[]) {
+                    out.append(Arrays.toString((double[]) value));
+                } else if (value instanceof String[]) {
+                    out.append(Arrays.toString((String[]) value));
+                } else if (value instanceof CharSequence[]) {
+                    out.append(Arrays.toString((CharSequence[]) value));
+                } else if (value instanceof Parcelable[]) {
+                    out.append(Arrays.toString((Parcelable[]) value));
+                } else if (value instanceof Bundle) {
+                    out.append(bundleToString((Bundle) value));
+                } else {
+                    out.append(value);
+                }
+
+                first = false;
+            }
         }
 
-        return stringBuilder.toString();
+        out.append("]"  + "\n\n" );
 
+        return out.toString();
     }
 
 }
