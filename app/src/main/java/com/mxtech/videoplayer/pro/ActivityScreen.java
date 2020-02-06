@@ -1,7 +1,6 @@
 package com.mxtech.videoplayer.pro;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -19,9 +18,9 @@ import android.widget.TextView;
 
 import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity {
+public class ActivityScreen extends AppCompatActivity {
 
-    private final static String TAG = MainActivity.class.getName();
+    private final static String TAG = ActivityScreen.class.getName();
 
     TextView view;
 
