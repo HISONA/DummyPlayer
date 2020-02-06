@@ -140,7 +140,8 @@ public class ActivityScreen extends AppCompatActivity {
         StringBuilder out = new StringBuilder("action: "  + "\n")
                 .append(intent.getAction() + "\n\n")
                 .append(" data: " + "\n")
-                .append(intent.getDataString() + "\n\n")
+                .append("uri: " + intent.getDataString() + "\n")
+                .append("type: " + intent.getType() + "\n\n")
                 .append(" extras: " + "\n");
 
         return out.toString() + " \n\n" + bundleToString(intent.getExtras());
